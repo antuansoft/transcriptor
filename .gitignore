@@ -1,0 +1,41 @@
+# Entorno virtual
+venv/
+.venv/
+
+# Modelos descargados por Whisper (se descargan automáticamente)
+*.pt
+
+# Archivos de audio y vídeo (pueden contener información sensible)
+*.mp3
+*.wav
+*.m4a
+*.ogg
+*.flac
+*.mp4
+*.mkv
+*.avi
+
+# Transcripciones generadas
+*_transcript.docx
+*_transcript.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+
+# VS Code
+.vscode/
+
+# Variables de entorno
+.env
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
