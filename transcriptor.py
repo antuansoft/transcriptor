@@ -4,8 +4,9 @@ import torch
 import os
 import re
 import time
+import csv
 from docx import Document
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 # --- Seguridad: extensiones permitidas ---
 EXTENSIONES_PERMITIDAS = {'.mp3', '.wav', '.m4a', '.ogg', '.flac', '.mp4'}
@@ -19,6 +20,12 @@ VELOCIDAD_MODELO = {
     "medium":  6,
     "large":   3
 }
+
+STATS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stats.csv")
+STATS_CABECERA = ["fecha", "dispositivo", "modelo", "archivo", "extension",
+                  "duracion_seg", "duracion_fmt", "estimado_seg", "estimado_fmt",
+                  "real_seg", "real_fmt", "velocidad"]
+MIN_MUESTRAS_HISTORICO = 3
 
 def validar_archivo(file_path: str) -> bool:
     ext = os.path.splitext(file_path)[1].lower()
@@ -64,10 +71,54 @@ def obtener_duracion_audio(file_path: str) -> float:
     except Exception:
         return None
 
-def estimar_tiempo(duracion_audio: float, modelo: str) -> float:
-    """Estima el tiempo de procesamiento en segundos"""
-    velocidad = VELOCIDAD_MODELO.get(modelo, 6)
+def leer_velocidad_historica(dispositivo: str, modelo: str) -> float | None:
+    """Devuelve la velocidad media real (audio_seg/real_seg) para este dispositivo+modelo.
+    Requiere al menos MIN_MUESTRAS_HISTORICO entradas. Devuelve None si no hay suficientes datos."""
+    if not os.path.exists(STATS_PATH):
+        return None
+    muestras = []
+    with open(STATS_PATH, newline="", encoding="utf-8") as f:
+        for fila in csv.DictReader(f):
+            if fila["dispositivo"] == dispositivo and fila["modelo"] == modelo:
+                try:
+                    muestras.append(float(fila["velocidad"]))
+                except (ValueError, KeyError):
+                    pass
+    if len(muestras) >= MIN_MUESTRAS_HISTORICO:
+        return sum(muestras) / len(muestras)
+    return None
+
+def estimar_tiempo(duracion_audio: float, modelo: str, velocidad_historica: float | None = None) -> float:
+    """Estima el tiempo de procesamiento en segundos.
+    Usa velocidad_historica si está disponible, si no el valor fijo del diccionario."""
+    velocidad = velocidad_historica if velocidad_historica else VELOCIDAD_MODELO.get(modelo, 6)
     return duracion_audio / velocidad
+
+def guardar_stats(dispositivo: str, modelo: str, archivo: str, extension: str,
+                  duracion: float, estimado: float, real: float):
+    """Añade una fila al CSV de estadísticas."""
+    velocidad = duracion / real if real > 0 else 0
+    nueva_fila = {
+        "fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "dispositivo": dispositivo,
+        "modelo": modelo,
+        "archivo": archivo,
+        "extension": extension,
+        "duracion_seg": f"{duracion:.2f}",
+        "duracion_fmt": format_duracion(duracion),
+        "estimado_seg": f"{estimado:.2f}",
+        "estimado_fmt": format_duracion(estimado),
+        "real_seg": f"{real:.2f}",
+        "real_fmt": format_duracion(real),
+        "velocidad": f"{velocidad:.2f}",
+    }
+    escribir_cabecera = not os.path.exists(STATS_PATH)
+    with open(STATS_PATH, "a", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=STATS_CABECERA)
+        if escribir_cabecera:
+            writer.writeheader()
+        writer.writerow(nueva_fila)
+    print(f"  📊 Stats guardadas en: {STATS_PATH}")
 
 def transcribe_audio(file_path: str, model) -> dict:
     """Transcribe con barra de progreso por segmentos"""
@@ -82,11 +133,16 @@ def transcribe_audio(file_path: str, model) -> dict:
     def spinner():
         chars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
         i = 0
+        t0 = time.time()
         while not stop_spinner.is_set():
-            print(f"\r  {chars[i % len(chars)]} Procesando audio...", end="", flush=True)
+            elapsed = int(time.time() - t0)
+            mm, ss = divmod(elapsed, 60)
+            print(f"\r  {chars[i % len(chars)]} Procesando audio...  {mm:02}:{ss:02}", end="", flush=True)
             i += 1
             time.sleep(0.1)
-        print(f"\r  ✅ Audio procesado.          ", flush=True)
+        elapsed = int(time.time() - t0)
+        mm, ss = divmod(elapsed, 60)
+        print(f"\r  ✅ Audio procesado en {mm:02}:{ss:02}          ", flush=True)
 
     hilo = threading.Thread(target=spinner)
     hilo.start()
@@ -135,7 +191,7 @@ def limpiar_archivos(*rutas):
 # --- Main ---
 if __name__ == "__main__":
     # Configuración inicial 
-    AUDIO_PATH = r"C:\Users\a.martinez.alfaya\OneDrive - Accenture\Desktop\tmp\2026-06-10-seguimiento1-ppt.m4a" # <-- Cambia esta ruta por la de tu archivo de audio/video
+    AUDIO_PATH = r"C:\Users\a.martinez.alfaya\OneDrive - Accenture\Desktop\tmp\2026-06-24-Planificación-proyecto-carlos.m4a" # <-- Cambia esta ruta por la de tu archivo de audio/video
     MODELO = "medium" # Opciones: tiny, base, small, medium, large
 
     print("=" * 60)
@@ -143,9 +199,11 @@ if __name__ == "__main__":
     print("=" * 60)
 
     device = "cuda" if torch.cuda.is_available() else "cpu" # Detecta automáticamente si hay GPU disponible si da error, fuerza a "cpu" con device = "cpu"
+    extension = os.path.splitext(AUDIO_PATH)[1].lower().lstrip(".")
     print(f"\n  Dispositivo : {device.upper()}")
     print(f"  Modelo      : {MODELO}")
     print(f"  Archivo     : {os.path.basename(AUDIO_PATH)}")
+    print(f"  Extensión   : {extension}")
 
     try:
         validar_archivo(AUDIO_PATH)
@@ -154,13 +212,17 @@ if __name__ == "__main__":
         word_out = os.path.join(carpeta, f"{base_name}_transcript.docx")
         json_out = os.path.join(carpeta, f"{base_name}_transcript.json")
 
+        # Velocidad histórica para estimación ajustada
+        velocidad_historica = leer_velocidad_historica(device.upper(), MODELO)
+
         # Duración y estimación
         print("\n  Analizando archivo de audio...")
         duracion = obtener_duracion_audio(AUDIO_PATH)
         if duracion:
-            estimado = estimar_tiempo(duracion, MODELO)
+            estimado = estimar_tiempo(duracion, MODELO, velocidad_historica)
             print(f"  Duración audio  : {format_duracion(duracion)}")
-            print(f"  ⏱️  Tiempo estimado : ~{format_duracion(estimado)}")
+            fuente = "histórico" if velocidad_historica else "estimado"
+            print(f"  ⏱️  Tiempo estimado : ~{format_duracion(estimado)} ({fuente})")
         else:
             print("  ⚠️  No se pudo estimar la duración")
 
@@ -195,6 +257,11 @@ if __name__ == "__main__":
         print(f"  Word → {word_out}")
         print(f"  JSON → {json_out}")
         print("=" * 60)
+
+        # Guardar estadísticas
+        if duracion:
+            guardar_stats(device.upper(), MODELO, os.path.basename(AUDIO_PATH),
+                          extension, duracion, estimado, tiempo_real)
 
     except (ValueError, FileNotFoundError) as e:
         print(f"\n❌ Error: {e}")
