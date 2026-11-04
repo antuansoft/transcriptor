@@ -3,3 +3,66 @@ fecha,dispositivo,modelo,archivo,extension,duracion_seg,duracion_fmt,estimado_se
 2026-06-17 11:16:45,CUDA,medium,2026-06-17-daily.m4a,m4a,1447.00,24m 7s,241.17,4m 1s,801.08,13m 21s,1.81
 2026-06-22 20:20:22,CUDA,medium,2026-06-22-GHE-Activar licencias-video.m4a,m4a,1532.20,25m 32s,255.37,4m 15s,599.48,9m 59s,2.56
 2026-06-24 16:53:49,CUDA,medium,2026-06-24-Planificación-proyecto-carlos.m4a,m4a,1849.57,30m 49s,882.15,14m 42s,1426.84,23m 46s,1.30
+2026-06-29 18:31:30,CUDA,medium,2026-06-29- Evidencias Cyber GHEC - video.m4a,m4a,3862.37,64m 22s,2035.50,33m 55s,766.80,12m 46s,5.04
+2026-06-29 19:23:09,CUDA,medium,2026-06-29-Revision diseño Runners en RGs.m4a,m4a,1803.00,30m 3s,713.78,11m 53s,745.99,12m 25s,2.42
+2026-07-02 11:18:04,CUDA,medium,2026-07-01- Revisión de controles para los costes de GHEC.m4a,m4a,2801.23,46m 41s,1116.77,18m 36s,1871.95,31m 11s,1.50
+2026-07-02 12:09:37,CUDA,medium,2026-07-01-Propuesta inicial de organizaciones y naming convention.m4a,m4a,1824.40,30m 24s,771.65,12m 51s,1198.15,19m 58s,1.52
+2026-07-02 12:57:16,CUDA,medium,2026-07-02-Presentación de la propuesta de organización para GitHub Enterprise y naming convention.m4a,m4a,2711.63,45m 11s,1200.50,20m 0s,1653.31,27m 33s,1.64
+2026-07-23 11:50:00,CUDA,medium,2026-07-23-Reunion-Organizacion-GHE-video.m4a,m4a,1440.03,24m 0s,657.55,10m 57s,567.12,9m 27s,2.54
+2026-07-23 12:55:51,CUDA,medium,2026-07-23 - Implementación GitHub DXC - seguimiento.m4a,m4a,1313.83,21m 53s,590.49,9m 50s,847.72,14m 7s,1.55
+2026-07-30 09:18:27,CUDA,medium,2026-07-29 - GHAction- conjur - maquinas - arquitectura - video.m4a,m4a,4205.17,70m 5s,1943.56,32m 23s,2334.66,38m 54s,1.80
+2026-07-31 08:42:34,CUDA,medium,2026-07-30-Implementación GitHub - Reunión de seguimiento.m4a,m4a,418.87,6m 58s,196.34,3m 16s,250.92,4m 10s,1.67
+2026-08-10 13:31:39,CUDA,medium,2026-08-10- GitHub Actions - Conjur validacion conectividad.m4a,m4a,1486.83,24m 46s,708.79,11m 48s,671.11,11m 11s,2.22
+2026-08-12 13:33:30,CUDA,medium,2026-08-12-Configuración de la OVA GitHub Enterprise-video.m4a,m4a,2480.67,41m 20s,1177.66,19m 37s,1084.25,18m 4s,2.29
+2026-08-14 02:13:11,CUDA,medium,2026-08-13 config desarrollos pendienes.m4a,m4a,886.23,14m 46s,418.30,6m 58s,342.01,5m 42s,2.59
+2026-08-14 02:20:14,CUDA,medium,2026-08-13-Alternativas-conjur.m4a,m4a,742.87,12m 22s,345.82,5m 45s,298.37,4m 58s,2.49
+2026-08-18 15:07:00,CUDA,medium,2026-08-17 Luis rodriguez.m4a,m4a,3384.40,56m 24s,1560.90,26m 0s,1393.89,23m 13s,2.43
+2026-08-20 08:47:30,CUDA,medium,2026-08-19-Nich-migrar-bbucket-GHEC.m4a,m4a,2368.60,39m 28s,1085.13,18m 5s,1120.66,18m 40s,2.11
+2026-08-23 01:24:14,CUDA,medium,2026-08-20 - Revision conjur - blob.core.m4a,m4a,882.10,14m 42s,404.83,6m 44s,443.95,7m 23s,1.99
+2026-08-27 10:56:40,CUDA,medium,2026-08-26- revision conjur3.m4a,m4a,540.23,9m 0s,249.01,4m 9s,237.09,3m 57s,2.28
+2026-08-27 11:05:42,CUDA,medium,2026-08-25-peticion-certificado-ssl.m4a,m4a,797.03,13m 17s,366.49,6m 6s,268.48,4m 28s,2.97
+2026-08-27 11:11:36,CUDA,medium,2026-08-20 - seguimiento DXC OVA.m4a,m4a,470.03,7m 50s,212.60,3m 32s,317.94,5m 17s,1.48
+2026-08-27 11:17:01,CUDA,medium,2026-08-26- Conectores Ciberark para usuarios cba_t1_aos_ghe.m4a,m4a,285.87,4m 45s,131.18,2m 11s,79.27,1m 19s,3.61
+2026-08-29 09:18:06,CUDA,medium,2026-08-28-adrian-rodriguez.m4a,m4a,3349.93,55m 49s,1496.34,24m 56s,2614.37,43m 34s,1.28
+2026-09-08 17:49:20,CUDA,medium,2026-09-08 gestion evidencias - 4722-video.m4a,m4a,1481.00,24m 41s,673.06,11m 13s,657.10,10m 57s,2.25
+2026-09-08 22:42:18,CUDA,medium,2026-09-07 - finalizacion setup ghes OVA.m4a,m4a,1835.83,30m 35s,833.60,13m 53s,833.40,13m 53s,2.20
+2026-09-16 06:18:03,CUDA,medium,2026-09-15- estado conur-carlos-video.m4a,m4a,1057.97,17m 37s,480.41,8m 0s,912.87,15m 12s,1.16
+2026-09-16 12:33:19,CUDA,medium,2026-09-16 -Conjur-Cyber-juancalos.m4a,m4a,349.60,5m 49s,161.48,2m 41s,264.89,4m 24s,1.32
+2026-09-21 15:29:49,CUDA,medium,2026-09-21-daily-JC.m4a,m4a,930.27,15m 30s,435.55,7m 15s,594.73,9m 54s,1.56
+2026-09-22 12:10:37,CUDA,medium,2026-09-22 - GH Assessment 2026.m4a,m4a,3059.73,50m 59s,1445.54,24m 5s,1810.61,30m 10s,1.69
+2026-09-25 14:53:57,CUDA,medium,2026-09-25-Revison-alcance-Copilot-runners-Tier-0-DesRecovery.m4a,m4a,3092.50,51m 32s,1470.59,24m 30s,1695.05,28m 15s,1.82
+2026-09-27 12:51:39,CUDA,medium,2026-09-24 -Logs + Operacion - copilot.m4a,m4a,185.70,3m 5s,88.68,1m 28s,372.03,6m 12s,0.50
+2026-09-28 11:01:21,CUDA,medium,2026-09-25-postdaily-JC-Disaster-recovery.m4a,m4a,652.33,10m 52s,318.87,5m 18s,424.00,7m 3s,1.54
+2026-09-29 18:31:26,CUDA,medium,2026-09-28 - Revision Casos Uso Git Hub Actions- Casos de uso de Logging.m4a,m4a,1198.60,19m 58s,590.19,9m 50s,636.96,10m 36s,1.88
+2026-10-01 18:29:02,CUDA,medium,2026-10-01-contexto-francecs.m4a,m4a,533.57,8m 53s,263.29,4m 23s,268.25,4m 28s,1.99
+2026-10-02 11:57:47,CUDA,medium,2026-10-01-ACA-error-500-video.m4a,m4a,606.17,10m 6s,299.26,4m 59s,191.56,3m 11s,3.16
+2026-10-02 12:07:06,CUDA,medium,2026-10-01-ACA-error-500-2-video.m4a,m4a,972.07,16m 12s,472.75,7m 52s,371.47,6m 11s,2.62
+2026-10-05 06:21:08,CUDA,medium,2026-10-01-ACA-error-500-3-video.m4a,m4a,2037.40,33m 57s,983.75,16m 23s,1236.77,20m 36s,1.65
+2026-10-05 11:15:33,CUDA,medium,2026-09-15 - Evidencias GHES-video.m4a,m4a,1491.37,24m 51s,723.87,12m 3s,390.57,6m 30s,3.82
+2026-10-06 11:28:41,CUDA,medium,2026-10-06-evidencias-asier-343.m4a,m4a,1519.03,25m 19s,721.89,12m 1s,755.25,12m 35s,2.01
+2026-10-06 18:23:25,CUDA,medium,2026-10-06-evidencias-asier-4277-redes.m4a,m4a,1475.03,24m 35s,701.74,11m 41s,535.36,8m 55s,2.76
+2026-10-07 13:18:34,CUDA,medium,2026-10-07-Defnicion Caso Consumo Conjur GitHub Actions Runner Openshift y Windows.m4a,m4a,1110.20,18m 30s,524.27,8m 44s,703.80,11m 43s,1.58
+2026-10-07 13:47:18,CUDA,medium,2026-10-06-Assessment 2026-Sesión-02-Gobierno del repositorio y desarrollo seguro vía GitHub Actions.m4a,m4a,1799.33,29m 59s,854.74,14m 14s,937.22,15m 37s,1.92
+2026-10-08 14:07:49,CUDA,medium,2026-10-05-Prueba VSCode + Copilot3.m4a,m4a,733.13,12m 13s,348.96,5m 48s,418.15,6m 58s,1.75
+2026-10-14 09:19:01,CUDA,medium,2026-10-13-sail-point.m4a,m4a,194.87,3m 14s,93.10,1m 33s,101.81,1m 41s,1.91
+2026-10-14 19:18:38,CUDA,medium,2026-10-13- SEP-4277.m4a,m4a,1826.93,30m 26s,874.49,14m 34s,970.86,16m 10s,1.88
+2026-10-14 19:43:39,CUDA,medium,2026-10-13- SEP-343.m4a,m4a,1143.53,19m 3s,548.54,9m 8s,409.07,6m 49s,2.80
+2026-10-14 19:47:55,CUDA,medium,2026-10-13-purple-team.m4a,m4a,782.47,13m 2s,372.68,6m 12s,190.94,3m 10s,4.10
+2026-10-15 12:21:59,CUDA,medium,2026-10-14- Seguimiento Ejecutivo.m4a,m4a,3237.73,53m 57s,1512.67,25m 12s,2211.73,36m 51s,1.46
+2026-10-17 15:43:31,CUDA,medium,2026-10-16 - Soporte Microsoft - ACA .m4a,m4a,1448.23,24m 8s,680.94,11m 20s,20719.35,345m 19s,0.07
+2026-10-18 10:46:45,CUDA,medium,2026-10-15-revision-sep-JD-sail-purpple.m4a,m4a,4814.50,80m 14s,2307.49,38m 27s,2097.46,34m 57s,2.30
+2026-10-18 18:07:15,CUDA,medium,2026-10-16 - Soporte Microsoft - ACA .m4a,m4a,1448.23,24m 8s,692.74,11m 32s,1004.18,16m 44s,1.44
+2026-10-20 15:18:31,CUDA,medium,2026-10-20- SEP-343.m4a,m4a,1348.70,22m 28s,648.94,10m 48s,703.17,11m 43s,1.92
+2026-10-20 15:41:20,CUDA,medium,2026-10-20- SEP-4277.m4a,m4a,712.77,11m 52s,343.44,5m 43s,327.50,5m 27s,2.18
+2026-10-26 17:25:41,CUDA,medium,2026-10-01-contexto-francecs.m4a,m4a,533.57,8m 53s,256.86,4m 16s,673.07,11m 13s,0.79
+2026-10-26 17:37:58,CUDA,medium,2026-10-01-contexto-Jeimi.m4a,m4a,563.87,9m 23s,274.48,4m 34s,645.39,10m 45s,0.87
+2026-10-26 18:28:34,CUDA,medium,2026-10-26-contexto-Jesus-Jeimi.m4a,m4a,1883.93,31m 23s,926.44,15m 26s,1087.48,18m 7s,1.73
+2026-10-27 12:03:33,CUDA,medium,2026-10-27- SEP-343.m4a,m4a,1725.80,28m 45s,850.87,14m 10s,914.02,15m 14s,1.89
+2026-10-27 15:53:49,CUDA,medium,2026-10-27-SEP-Usuarios-Purpleteam-logs.m4a,m4a,3826.93,63m 46s,1888.97,31m 28s,1378.17,22m 58s,2.78
+2026-10-29 06:13:34,CUDA,medium,2026-10-27-SEP-Usuarios-Purpleteam-logs.m4a,m4a,3826.93,63m 46s,1877.33,31m 17s,1586.00,26m 26s,2.41
+2026-10-30 11:10:52,CUDA,medium,2026-10-28-det04-det05-microsoft.m4a,m4a,1070.40,17m 50s,523.53,8m 43s,553.02,9m 13s,1.94
+2026-10-30 11:47:47,CUDA,medium,2026-10-29 Infraestructura Windows GitHub-Kickof.m4a,m4a,3095.93,51m 35s,1515.46,25m 15s,1710.65,28m 30s,1.81
+2026-10-30 13:19:21,CUDA,medium,2026-10-28-Revision con MS - Azure Log Analytic- ACA.m4a,m4a,3644.43,60m 44s,1787.18,29m 47s,1930.66,32m 10s,1.89
+2026-11-03 06:41:28,CUDA,medium,2026-10-29 Infraestructura Windows GitHub-Kickof.m4a,m4a,3095.93,51m 35s,1519.94,25m 19s,1701.73,28m 21s,1.82
+2026-11-03 14:24:14,CUDA,medium,2026-11-03-Analisis-Ips-previa.m4a,m4a,460.60,7m 40s,226.50,3m 46s,278.60,4m 38s,1.65
+2026-11-04 11:23:32,CUDA,medium,2026-11-03-segumiento.m4a,m4a,2375.70,39m 35s,1171.61,19m 31s,1333.75,22m 13s,1.78
