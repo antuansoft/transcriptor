@@ -66,3 +66,7 @@ fecha,dispositivo,modelo,archivo,extension,duracion_seg,duracion_fmt,estimado_se
 2026-11-03 06:41:28,CUDA,medium,2026-10-29 Infraestructura Windows GitHub-Kickof.m4a,m4a,3095.93,51m 35s,1519.94,25m 19s,1701.73,28m 21s,1.82
 2026-11-03 14:24:14,CUDA,medium,2026-11-03-Analisis-Ips-previa.m4a,m4a,460.60,7m 40s,226.50,3m 46s,278.60,4m 38s,1.65
 2026-11-04 11:23:32,CUDA,medium,2026-11-03-segumiento.m4a,m4a,2375.70,39m 35s,1171.61,19m 31s,1333.75,22m 13s,1.78
+2026-11-05 08:45:35,CUDA,medium,2026-11-04 - consumo de secretos-conjur.m4a,m4a,2257.27,37m 37s,1115.23,18m 35s,1485.90,24m 45s,1.52
+2026-11-05 08:49:30,CUDA,medium,2026-11-04-GHES-restaurar-certificado.m4a,m4a,245.73,4m 5s,121.85,2m 1s,126.99,2m 6s,1.94
+2026-11-05 08:52:51,CUDA,medium,2026-11-03-SEP-343.m4a,m4a,478.77,7m 58s,237.54,3m 57s,197.08,3m 17s,2.43
+2026-11-05 09:32:27,CUDA,medium,2026-11-04 - GEI-vs-Script.m4a,m4a,3893.07,64m 53s,1925.90,32m 5s,2373.60,39m 33s,1.64

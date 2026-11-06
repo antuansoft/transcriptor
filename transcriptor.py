@@ -188,80 +188,115 @@ def limpiar_archivos(*rutas):
             os.remove(ruta)
             print(f"  🗑️  Archivo temporal eliminado: {ruta}")
 
+def procesar_archivo(audio_path: str, model, modelo: str, device: str) -> float:
+    """Transcribe un archivo y guarda Word, JSON y estadísticas. Devuelve el tiempo real."""
+    extension = os.path.splitext(audio_path)[1].lower().lstrip(".")
+    print(f"\n  Archivo     : {os.path.basename(audio_path)}")
+    print(f"  Extensión   : {extension}")
+
+    validar_archivo(audio_path)
+    base_name = sanitizar_nombre(audio_path)
+    carpeta = os.path.dirname(os.path.abspath(audio_path))
+    word_out = os.path.join(carpeta, f"{base_name}_transcript.docx")
+    json_out = os.path.join(carpeta, f"{base_name}_transcript.json")
+
+    # Velocidad histórica para estimación ajustada
+    velocidad_historica = leer_velocidad_historica(device.upper(), modelo)
+
+    # Duración y estimación
+    print("\n  Analizando archivo de audio...")
+    duracion = obtener_duracion_audio(audio_path)
+    if duracion:
+        estimado = estimar_tiempo(duracion, modelo, velocidad_historica)
+        print(f"  Duración audio  : {format_duracion(duracion)}")
+        fuente = "histórico" if velocidad_historica else "estimado"
+        print(f"  ⏱️  Tiempo estimado : ~{format_duracion(estimado)} ({fuente})")
+    else:
+        print("  ⚠️  No se pudo estimar la duración")
+
+    # Transcripción
+    print(f"\n  Iniciando transcripción...")
+    t_inicio = time.time()
+    result = transcribe_audio(audio_path, model)
+    tiempo_real = time.time() - t_inicio
+
+    # Guardado
+    print("\n  Guardando archivos...")
+    guardar_word(result.get("text", ""), word_out)
+    guardar_json(result, json_out)
+
+    # Resumen del archivo
+    print("\n" + "-" * 60)
+    if duracion:
+        print(f"  Duración audio    : {format_duracion(duracion)}")
+        print(f"  Tiempo estimado   : ~{format_duracion(estimado)}")
+    print(f"  Tiempo real       : {format_duracion(tiempo_real)}")
+    if duracion:
+        print(f"  Velocidad         : {duracion / tiempo_real:.1f}x tiempo real")
+    print(f"  Word → {word_out}")
+    print(f"  JSON → {json_out}")
+    print("-" * 60)
+
+    # Guardar estadísticas
+    if duracion:
+        guardar_stats(device.upper(), modelo, os.path.basename(audio_path),
+                      extension, duracion, estimado, tiempo_real)
+    return tiempo_real
+
 # --- Main ---
 if __name__ == "__main__":
-    # Configuración inicial 
-    AUDIO_PATH = r"C:\Users\a.martinez.alfaya\OneDrive - Accenture\Desktop\tmp\2026-06-24-Planificación-proyecto-carlos.m4a" # <-- Cambia esta ruta por la de tu archivo de audio/video
+    import sys
+
+    # Configuración inicial
+    # Lista de archivos a procesar en orden. También se pueden pasar por línea de comandos:
+    #   python transcriptor.py audio1.m4a audio2.mp3 ...  (si se pasan, sustituyen a esta lista)
+    AUDIO_PATHS = [
+        r"C:\Users\a.martinez.alfaya\OneDrive - Accenture\Desktop\tmp\2026-11-04-GHES-restaurar-certificado.m4a",
+        r"C:\Users\a.martinez.alfaya\OneDrive - Accenture\Desktop\tmp\2026-11-03-SEP-343.m4a",
+        r"C:\Users\a.martinez.alfaya\OneDrive - Accenture\Desktop\tmp\2026-11-04 - GEI-vs-Script.m4a",
+    ]
     MODELO = "medium" # Opciones: tiny, base, small, medium, large
+
+    if len(sys.argv) > 1:
+        AUDIO_PATHS = sys.argv[1:]
 
     print("=" * 60)
     print("🎙️  TRANSCRIPTOR DE AUDIO - Whisper")
     print("=" * 60)
 
     device = "cuda" if torch.cuda.is_available() else "cpu" # Detecta automáticamente si hay GPU disponible si da error, fuerza a "cpu" con device = "cpu"
-    extension = os.path.splitext(AUDIO_PATH)[1].lower().lstrip(".")
     print(f"\n  Dispositivo : {device.upper()}")
     print(f"  Modelo      : {MODELO}")
-    print(f"  Archivo     : {os.path.basename(AUDIO_PATH)}")
-    print(f"  Extensión   : {extension}")
+    print(f"  Archivos    : {len(AUDIO_PATHS)}")
 
-    try:
-        validar_archivo(AUDIO_PATH)
-        base_name = sanitizar_nombre(AUDIO_PATH)
-        carpeta = os.path.dirname(os.path.abspath(AUDIO_PATH))
-        word_out = os.path.join(carpeta, f"{base_name}_transcript.docx")
-        json_out = os.path.join(carpeta, f"{base_name}_transcript.json")
+    # Carga del modelo (una sola vez para todos los archivos)
+    print(f"\n  Cargando modelo '{MODELO}'...")
+    model = whisper.load_model(MODELO, device=device)
+    print(f"  ✅ Modelo cargado")
 
-        # Velocidad histórica para estimación ajustada
-        velocidad_historica = leer_velocidad_historica(device.upper(), MODELO)
+    completados, fallidos = [], []
+    t_lote = time.time()
+    total = len(AUDIO_PATHS)
 
-        # Duración y estimación
-        print("\n  Analizando archivo de audio...")
-        duracion = obtener_duracion_audio(AUDIO_PATH)
-        if duracion:
-            estimado = estimar_tiempo(duracion, MODELO, velocidad_historica)
-            print(f"  Duración audio  : {format_duracion(duracion)}")
-            fuente = "histórico" if velocidad_historica else "estimado"
-            print(f"  ⏱️  Tiempo estimado : ~{format_duracion(estimado)} ({fuente})")
-        else:
-            print("  ⚠️  No se pudo estimar la duración")
-
-        # Carga del modelo
-        print(f"\n  Cargando modelo '{MODELO}'...")
-        model = whisper.load_model(MODELO, device=device)
-        print(f"  ✅ Modelo cargado")
-
-        # Transcripción
-        print(f"\n  Iniciando transcripción...")
-        t_inicio = time.time()
-        result = transcribe_audio(AUDIO_PATH, model)
-        t_fin = time.time()
-        tiempo_real = t_fin - t_inicio
-
-        # Guardado
-        print("\n  Guardando archivos...")
-        guardar_word(result.get("text", ""), word_out)
-        guardar_json(result, json_out)
-
-        # Resumen final
+    for n, audio_path in enumerate(AUDIO_PATHS, start=1):
         print("\n" + "=" * 60)
-        print("✅  TRANSCRIPCIÓN COMPLETADA")
+        print(f"📁 [{n}/{total}] {os.path.basename(audio_path)}")
         print("=" * 60)
-        if duracion:
-            print(f"  Duración audio    : {format_duracion(duracion)}")
-            print(f"  Tiempo estimado   : ~{format_duracion(estimado)}")
-        print(f"  Tiempo real       : {format_duracion(tiempo_real)}")
-        if duracion:
-            factor = duracion / tiempo_real
-            print(f"  Velocidad         : {factor:.1f}x tiempo real")
-        print(f"  Word → {word_out}")
-        print(f"  JSON → {json_out}")
-        print("=" * 60)
+        try:
+            procesar_archivo(audio_path, model, MODELO, device)
+            completados.append(audio_path)
+        except Exception as e:
+            print(f"\n❌ Error: {e}")
+            fallidos.append((audio_path, str(e)))
 
-        # Guardar estadísticas
-        if duracion:
-            guardar_stats(device.upper(), MODELO, os.path.basename(AUDIO_PATH),
-                          extension, duracion, estimado, tiempo_real)
-
-    except (ValueError, FileNotFoundError) as e:
-        print(f"\n❌ Error: {e}")
+    # Resumen final del lote
+    print("\n" + "=" * 60)
+    print("✅  PROCESO FINALIZADO")
+    print("=" * 60)
+    print(f"  Completados : {len(completados)}/{total}")
+    print(f"  Tiempo total: {format_duracion(time.time() - t_lote)}")
+    if fallidos:
+        print(f"  Con error   : {len(fallidos)}")
+        for ruta, motivo in fallidos:
+            print(f"    - {os.path.basename(ruta)}: {motivo}")
+    print("=" * 60)
