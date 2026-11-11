@@ -251,9 +251,9 @@ if __name__ == "__main__":
     # Lista de archivos a procesar en orden. También se pueden pasar por línea de comandos:
     #   python transcriptor.py audio1.m4a audio2.mp3 ...  (si se pasan, sustituyen a esta lista)
     AUDIO_PATHS = [
-        r"C:\Users\a.martinez.alfaya\OneDrive - Accenture\Desktop\tmp\2026-11-04-GHES-restaurar-certificado.m4a",
-        r"C:\Users\a.martinez.alfaya\OneDrive - Accenture\Desktop\tmp\2026-11-03-SEP-343.m4a",
-        r"C:\Users\a.martinez.alfaya\OneDrive - Accenture\Desktop\tmp\2026-11-04 - GEI-vs-Script.m4a",
+        r"C:\temp\2026-11-04-GHES-restaurar-certificado.m4a",
+        r"C:\temp\2026-11-03-SEP-343.m4a",
+        r"C:\temp\2026-11-04 - GEI-vs-Script.m4a",
     ]
     MODELO = "medium" # Opciones: tiny, base, small, medium, large
 
