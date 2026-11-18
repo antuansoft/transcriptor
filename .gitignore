@@ -14,10 +14,20 @@ venv/
 *.mp4
 *.mkv
 *.avi
+*.mov
+*.webm
+*.wmv
+*.m4v
+*.aac
+*.wma
+*.opus
 
 # Transcripciones generadas
 *_transcript.docx
 *_transcript.json
+
+# Subtítulos generados
+*.srt
 
 # Python
 __pycache__/
